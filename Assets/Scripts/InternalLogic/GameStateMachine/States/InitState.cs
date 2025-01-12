@@ -19,6 +19,14 @@ namespace GBJ.InternalLogic
         private void BindServices()
         {
             BindGameStateMachine();
+            BindAssetsProvider();
+        }
+
+        private void BindAssetsProvider()
+        {
+            var assetsProvider = new AssetsProvider();
+            Services.Container.AddService<IAssetsProvider>(assetsProvider);
+            assetsProvider.Initialize();
         }
 
         private void BindGameStateMachine()
