@@ -1,3 +1,5 @@
+using GBJ.ServicesLogic;
+
 namespace GBJ.InternalLogic
 {
     public sealed class InitState : IState
@@ -9,9 +11,19 @@ namespace GBJ.InternalLogic
             _gameStateMachine = gameStateMachine;
         }
 
-        public async void Enter()
+        public void Enter()
         {
+            BindServices();
+        }
 
+        private void BindServices()
+        {
+            BindGameStateMachine();
+        }
+
+        private void BindGameStateMachine()
+        {
+            Services.Container.AddService<IGameStateMachine>(_gameStateMachine);
         }
 
         public void Exit()
