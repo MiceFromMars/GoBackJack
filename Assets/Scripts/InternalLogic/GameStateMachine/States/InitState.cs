@@ -14,12 +14,21 @@ namespace GBJ.InternalLogic
         public void Enter()
         {
             BindServices();
+
+            _gameStateMachine.Enter<BootState>();
         }
 
         private void BindServices()
         {
             BindGameStateMachine();
             BindAssetsProvider();
+            BindUIBuilder();
+            BindUIProvider();
+        }
+
+        private void BindGameStateMachine()
+        {
+            Services.Container.AddService<IGameStateMachine>(_gameStateMachine);
         }
 
         private void BindAssetsProvider()
@@ -29,9 +38,15 @@ namespace GBJ.InternalLogic
             assetsProvider.Initialize();
         }
 
-        private void BindGameStateMachine()
+        private void BindUIBuilder()
         {
-            Services.Container.AddService<IGameStateMachine>(_gameStateMachine);
+            var assetsProvider = Services.Container.GetService<IAssetsProvider>();
+            Services.Container.AddService<IUIBuilder>(new UIBuilder(assetsProvider));
+        }
+
+        private void BindUIProvider()
+        {
+            Services.Container.AddService<IUIProvider>(new UIProvider());
         }
 
         public void Exit()
