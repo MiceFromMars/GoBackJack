@@ -17,6 +17,7 @@ namespace GBJ.UILogic
         protected virtual void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup.alpha = 0f;
         }
 
         public void SetFadeTime(float time)
